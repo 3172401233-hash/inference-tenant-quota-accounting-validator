@@ -1,0 +1,23 @@
+{
+  "nodeQuota": 1000,
+  "tenants": [
+    { "id": "tenant-a", "quota": 700 },
+    { "id": "tenant-b", "quota": 500 }
+  ],
+  "steps": [
+    { "op": "batch", "requests": [
+      { "tenantId": "tenant-a", "requestId": "a-short", "tokens": 200, "priority": 1 },
+      { "tenantId": "tenant-a", "requestId": "a-long", "tokens": 600, "priority": 9 },
+      { "tenantId": "tenant-b", "requestId": "b-1", "tokens": 400, "priority": 5 },
+      { "tenantId": "tenant-b", "requestId": "b-2", "tokens": 400, "priority": 5 }
+    ] },
+    { "op": "settle", "requestId": "a-long", "inputTokens": 300, "outputTokens": 250 },
+    { "op": "settle", "requestId": "a-long", "inputTokens": 300, "outputTokens": 250 },
+    { "op": "cancel", "requestId": "b-1" },
+    { "op": "cancel", "requestId": "b-1" },
+    { "op": "reserve", "tenantId": "tenant-b", "requestId": "b-1", "tokens": 100, "priority": 5 },
+    { "op": "settle", "requestId": "b-1", "inputTokens": 40, "outputTokens": 50 },
+    { "op": "reserve", "tenantId": "tenant-a", "requestId": "a-short-retry", "tokens": 200, "priority": 1 },
+    { "op": "settle", "requestId": "a-short", "inputTokens": 80, "outputTokens": 90 }
+  ]
+}

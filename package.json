@@ -1,0 +1,13 @@
+{
+  "name": "inference-tenant-quota-accounting-validator",
+  "version": "1.0.0",
+  "description": "验证推理租户配额、预留和并发计费（不调用真实推理服务）",
+  "type": "module",
+  "engines": {
+    "node": ">=24.16.0"
+  },
+  "scripts": {
+    "test": "node --test",
+    "simulate": "node src/cli.js"
+  }
+}
